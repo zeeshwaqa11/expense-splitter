@@ -36,10 +36,10 @@ describe('expenses - split types', () => {
     expect(res.status).toBe(201);
     const splits: Record<string, number> = {};
     for (const s of res.body.expense.splits) splits[s.userId] = s.amountCents;
-    const sorted = memberIds.map((id) => splits[id]);
-    expect(sorted.reduce((s: number, v: number) => s + v, 0)).toBe(10000);
-    expect(sorted.filter((v: number) => v === 3334)).toHaveLength(1);
-    expect(sorted.filter((v: number) => v === 3333)).toHaveLength(2);
+    const sorted = memberIds.map((id) => splits[id]!);
+    expect(sorted.reduce((s, v) => s + v, 0)).toBe(10000);
+    expect(sorted.filter((v) => v === 3334)).toHaveLength(1);
+    expect(sorted.filter((v) => v === 3333)).toHaveLength(2);
     expect(splits[memberIds[0]!]).toBe(3334);
   });
 
