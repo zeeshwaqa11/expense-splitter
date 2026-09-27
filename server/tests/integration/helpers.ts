@@ -38,3 +38,23 @@ export async function registerUser(
 export function authed(token: string) {
   return { Authorization: `Bearer ${token}` };
 }
+
+export async function createGroupWithMembers(
+  owner: RegisteredUser,
+  members: RegisteredUser[],
+): Promise<string> {
+  const res = await request(app)
+    .post('/api/groups')
+    .set(authed(owner.token))
+    .send({ name: 'Test Group', type: 'HOME', currency: 'USD' });
+  const groupId = res.body.group.id as string;
+
+  for (const member of members) {
+    await request(app)
+      .post(`/api/groups/${groupId}/members`)
+      .set(authed(owner.token))
+      .send({ userId: member.user.id });
+  }
+
+  return groupId;
+}

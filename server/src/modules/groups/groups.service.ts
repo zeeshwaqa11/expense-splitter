@@ -1,6 +1,7 @@
 import { prisma } from '../../db/client.js';
-import { ConflictError, NotFoundError } from '../../utils/errors.js';
+import { ConflictError, NotFoundError, UnprocessableError } from '../../utils/errors.js';
 import { logActivity } from '../activity/activity.service.js';
+import { computeNetBalances } from '../balances/balances.service.js';
 import type { AddMemberInput, CreateGroupInput, UpdateGroupInput } from './groups.schemas.js';
 
 export async function createGroup(userId: string, input: CreateGroupInput) {
@@ -34,6 +35,13 @@ export async function requireMembership(groupId: string, userId: string): Promis
     where: { groupId_userId: { groupId, userId } },
   });
   if (!membership) throw new NotFoundError('Group not found');
+}
+
+export async function isMember(groupId: string, userId: string): Promise<boolean> {
+  const membership = await prisma.groupMember.findUnique({
+    where: { groupId_userId: { groupId, userId } },
+  });
+  return membership !== null;
 }
 
 export async function getGroup(groupId: string, userId: string) {
@@ -80,6 +88,11 @@ export async function removeMember(
     where: { groupId_userId: { groupId, userId: targetUserId } },
   });
   if (!membership) throw new NotFoundError('Membership not found');
+
+  const net = await computeNetBalances(groupId);
+  if ((net[targetUserId] ?? 0) !== 0) {
+    throw new UnprocessableError('Cannot remove a member with a non-zero balance');
+  }
 
   await prisma.groupMember.delete({
     where: { groupId_userId: { groupId, userId: targetUserId } },
