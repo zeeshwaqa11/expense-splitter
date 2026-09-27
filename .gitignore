@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.env
+.env.test
+server/prisma/dev.db
+server/prisma/test.db
+server/prisma/*.db-journal
+*.log
+.DS_Store
+coverage/
