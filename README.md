@@ -6,17 +6,19 @@ tangle of IOUs into the smallest set of payments that settles everyone up.
 
 ## Screenshots
 
-_Placeholders — capture these screens and drop the images in `docs/screenshots/`,
-then link them here:_
+_Images not yet captured — save each screenshot below to `docs/screenshots/`_
+_under the exact filename shown, and it will render here automatically._
 
-1. **Login page** showing the demo login buttons
-2. **Dashboard** with overall balance, group cards and recent activity
-3. **Group → Expenses tab** with a mix of split types and multi-payer rows
-4. **Add expense form** with the live split preview visible (try a Shares split)
-5. **Group → Balances tab** with the "Simplify debts" toggle on, showing suggested payments
-6. **Settle-up form** pre-filled from a suggested payment
-7. **Group → Insights tab** showing the category/month spending chart
-8. **Expense detail page** showing edit history after one edit
+| | |
+|---|---|
+| **Login** — demo login buttons visible | ![Login](docs/screenshots/01-login.png) |
+| **Dashboard** — overall balance, group cards, recent activity | ![Dashboard](docs/screenshots/02-dashboard.png) |
+| **Expenses tab** — mixed split types and a multi-payer row | ![Expenses](docs/screenshots/03-expenses.png) |
+| **Add expense** — live split preview visible (try a Shares split) | ![Add expense](docs/screenshots/04-add-expense.png) |
+| **Balances tab** — "Simplify debts" on, suggested payments shown | ![Balances](docs/screenshots/05-balances.png) |
+| **Settle up** — form pre-filled from a suggested payment | ![Settle up](docs/screenshots/06-settle-up.png) |
+| **Insights tab** — category/month spending chart | ![Insights](docs/screenshots/07-insights.png) |
+| **Expense detail** — edit history after one edit | ![Expense detail](docs/screenshots/08-expense-detail.png) |
 
 ## Features
 
